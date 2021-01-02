@@ -1,0 +1,53 @@
+@font-face {
+  font-family: "Cereal";
+  src: url("Cereal-ExtraBold.woff2") format("woff2"),
+    url("Cereal-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url("Cereal-Bold.woff2") format("woff2"),
+    url("Cereal-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url("Cereal-Book.woff2") format("woff2"),
+    url("Cereal-Book.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url("Cereal-Black.woff2") format("woff2"),
+    url("Cereal-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url("Cereal-Light.woff2") format("woff2"),
+    url("Cereal-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cereal";
+  src: url("Cereal-Medium.woff2") format("woff2"),
+    url("Cereal-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

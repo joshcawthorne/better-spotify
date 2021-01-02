@@ -9,9 +9,13 @@ const applicationModel = {
   setLoggedIn: action((state, payload) => {
     state.loggedIn = payload;
   }),
-  trackUri: "spotify:playlist:2DoO0sn4SbUrz7Uay9ACTM",
+  trackUri: "",
   setTrackUri: action((state, payload) => {
     state.trackUri = payload;
+  }),
+  deviceId: "",
+  setDeviceId: action((state, payload) => {
+    state.deviceId = payload;
   }),
 };
 

@@ -1,13 +1,17 @@
+import { useEffect } from "react";
 import styled from "styled-components";
-import { useStoreState, useStoreActions } from "easy-peasy";
+import { useStoreActions } from "easy-peasy";
 import { SpotifyApiContext } from "react-spotify-api";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { Helmet } from "react-helmet";
 
 import Login from "./components/login";
 import Dashboard from "./components/dashboard";
 import Playlist from "./components/playlistView";
 import Player from "./components/player";
 import Sidebar from "./components/sidebar";
+import HandleLogin from "./components/handleLogin";
 
 const AppContainer = styled.div`
   display: flex;
@@ -27,6 +31,67 @@ const SidebarSpacer = styled.div`
 `;
 
 function App() {
+  const setAuthToken = useStoreActions((actions) => actions.app.setAuthToken);
+
+  const token = Cookies.get("spotifyAuthToken");
+
+  useEffect(() => {
+    setAuthToken(token);
+  }, [token]);
+
+  return (
+    <div className="app">
+      <Router>
+        <Helmet>
+          <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        </Helmet>
+        {token ? (
+          <SpotifyApiContext.Provider value={token}>
+            <AppContainer>
+              <SidebarContainer>
+                <Sidebar />
+              </SidebarContainer>
+              <SidebarSpacer />
+              <Switch>
+                <Route exact path="/">
+                  <Dashboard />
+                </Route>
+                <Route path="/login">
+                  <HandleLogin />
+                </Route>
+                <Route path="/playlist/:id">
+                  <Playlist />
+                </Route>
+                <Route path="*">
+                  <div>404 not found lol</div>
+                </Route>
+              </Switch>
+
+              <Player />
+            </AppContainer>
+          </SpotifyApiContext.Provider>
+        ) : (
+          <Login />
+        )}
+      </Router>
+    </div>
+  );
+}
+export default App;
+
+{
+  /*
+
+
+
+
+
+
+
+
+
+
+
   const loggedIn = useStoreState((state) => state.app.loggedIn);
   const authToken = useStoreState((state) => state.app.authToken);
 
@@ -48,37 +113,15 @@ function App() {
     setAuthToken(hash.access_token);
     setLoggedIn(true);
   }
-  window.location.hash = "";
+  //window.location.hash = "";
+
+  console.log(hash);
 
   return (
-    <SpotifyApiContext.Provider value={authToken}>
-      <Router>
-        <AppContainer>
-          <SidebarContainer>
-            <Sidebar />
-          </SidebarContainer>
-          <SidebarSpacer />
-
-          <Switch>
-            <Route exact path="/">
-              <Dashboard />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/playlist/:id">
-              <Playlist />
-            </Route>
-            <Route path="*">
-              <div>404 not found lol</div>
-            </Route>
-          </Switch>
-
-          <Player />
-        </AppContainer>
-      </Router>
-    </SpotifyApiContext.Provider>
+    
   );
 }
 
 export default App;
+*/
+}

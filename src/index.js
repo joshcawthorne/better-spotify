@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./utils/store";
 import { StoreProvider } from "easy-peasy";
+import "./assets/fonts/stylesheet.css";
 
 ReactDOM.render(
   <React.StrictMode>

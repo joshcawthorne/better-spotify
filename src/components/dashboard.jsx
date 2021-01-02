@@ -11,7 +11,7 @@ function Dashboard() {
 
   useEffect(() => {
     if (!loggedIn) {
-      history.replace("/login");
+      //history.replace("/login");
     }
   }, []);
 

@@ -1,6 +1,14 @@
 import React from "react";
+import styled from "styled-components";
+
 import { UserPlaylists } from "react-spotify-api";
 import { useHistory } from "react-router-dom";
+
+const PlaylistItem = styled.div`
+  margin: 5px 0;
+  font-size: 16px;
+  cursor: pointer;
+`;
 
 function Playlists() {
   let history = useHistory();
@@ -15,10 +23,11 @@ function Playlists() {
               <div>
                 {playlists &&
                   playlists.data.items.map((p) => (
-                    <div onClick={() => history.push("/playlist/" + p.id)}>
-                      {console.log(p)}
+                    <PlaylistItem
+                      onClick={() => history.push("/playlist/" + p.id)}
+                    >
                       {p.name}
-                    </div>
+                    </PlaylistItem>
                   ))}
               </div>
             ) : null}
