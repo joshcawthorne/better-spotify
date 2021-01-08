@@ -12,6 +12,7 @@ import Playlist from "./components/playlistView";
 import Player from "./components/player";
 import Sidebar from "./components/sidebar";
 import HandleLogin from "./components/handleLogin";
+import Toolbar from "./components/toolbar";
 
 const AppContainer = styled.div`
   display: flex;
@@ -29,6 +30,10 @@ const SidebarSpacer = styled.div`
   min-width: 220px;
   height: 100vh;
 `;
+
+const ContentContainer = styled.div``;
+
+const ToolbarContainer = styled.div``;
 
 function App() {
   const setAuthToken = useStoreActions((actions) => actions.app.setAuthToken);
@@ -52,21 +57,25 @@ function App() {
                 <Sidebar />
               </SidebarContainer>
               <SidebarSpacer />
-              <Switch>
-                <Route exact path="/">
-                  <Dashboard />
-                </Route>
-                <Route path="/login">
-                  <HandleLogin />
-                </Route>
-                <Route path="/playlist/:id">
-                  <Playlist />
-                </Route>
-                <Route path="*">
-                  <div>404 not found lol</div>
-                </Route>
-              </Switch>
-
+              <ContentContainer>
+                <ToolbarContainer>
+                  <Toolbar />
+                </ToolbarContainer>
+                <Switch>
+                  <Route exact path="/">
+                    <Dashboard />
+                  </Route>
+                  <Route path="/login">
+                    <HandleLogin />
+                  </Route>
+                  <Route path="/playlist/:id">
+                    <Playlist />
+                  </Route>
+                  <Route path="*">
+                    <div>404 not found lol</div>
+                  </Route>
+                </Switch>
+              </ContentContainer>
               <Player />
             </AppContainer>
           </SpotifyApiContext.Provider>

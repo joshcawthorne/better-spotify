@@ -37,7 +37,7 @@ function Track({ data, playTrack }) {
   );
 
   function handleClick() {
-    const artists = data.track.artists.map((artist) => artist.name).join();
+    const artists = data.track.artists.map((artist) => artist.name).join(", ");
     console.log(artists);
     setTrackName(data.track.name);
     setTrackArtist(artists);

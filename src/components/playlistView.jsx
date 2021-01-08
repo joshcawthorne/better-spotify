@@ -7,10 +7,24 @@ import axios from "axios";
 
 import Track from "./track";
 
+const PlaylistViewContainer = styled.div`
+  padding-bottom: 80px;
+  background-color: #000;
+  color: #fff;
+`;
+
+const Title = styled.div`
+  font-size: 32px;
+  font-weight: bold;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+`;
+
 const TrackContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: calc(100% - 40px);
   margin-left: 20px;
   margin-right: 20px;
 `;
@@ -41,14 +55,14 @@ function PlaylistView() {
     <Playlist id={id}>
       {(playlist, loading, error) =>
         playlist && playlist.data !== null ? (
-          <div style={{ paddingBottom: "80px" }}>
-            <h1>{playlist.data.name}</h1>
+          <PlaylistViewContainer>
+            <Title>{playlist.data.name}</Title>
             <TrackContainer>
               {playlist.data.tracks.items.map((t) => (
                 <Track data={t} playTrack={playTrack} />
               ))}
             </TrackContainer>
-          </div>
+          </PlaylistViewContainer>
         ) : null
       }
     </Playlist>

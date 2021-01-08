@@ -4,22 +4,23 @@ import Logout from "../utils/logout";
 
 import Playlists from "./playlists";
 
-const Logo = styled.div`
-  font-weight: bold;
-  font-size: 22px;
-`;
+import { ReactComponent as Logo } from "../assets/icons/logo.svg";
 
 const SidebarContainer = styled.div`
   width: calc(100% - 20px);
   height: 100%;
-  background-color: #121212;
+  background-color: #000;
   color: #fff;
   padding: 0px 10px 0px 10px;
 `;
 
 const AppLogo = styled.div`
-  padding-top: 50px;
-  margin-bottom: 50px;
+  height: 100px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-left: 0px;
+  align-items: center;
 `;
 
 const Title = styled.div`
@@ -37,7 +38,9 @@ const SectionTitle = styled.div`
 function Sidebar() {
   return (
     <SidebarContainer>
-      <AppLogo>Opevo v0.01a</AppLogo>
+      <AppLogo>
+        <Logo stroke={"#fff"} />
+      </AppLogo>
       <SectionTitle>Playlists</SectionTitle>
       <Playlists />
       <Title onClick={() => Logout()} style={{ cursor: "pointer" }}>

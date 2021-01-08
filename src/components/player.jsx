@@ -4,32 +4,66 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 import { motion } from "framer-motion";
 import axios from "axios";
 
+import { ReactComponent as PlayIcon } from "../assets/icons/play.svg";
+import { ReactComponent as SkipIcon } from "../assets/icons/skip.svg";
+
+const PlayerContainerOuter = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+`;
+
 const PlayerContainer = styled(motion.div)`
   z-index: 10;
-  width: 100%;
-  height: 60px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background-color: #fff;
+  width: calc(100% - 40px);
+  border-radius: 24px;
+  overflow: hidden;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  color: #fff;
   display: flex;
   align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ffffff1c;
+  position: relative;
 `;
-const MetaData = styled.div``;
+const MetaData = styled.div`
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-right: 50px;
+`;
 
 const TrackName = styled.div`
-  font-size: 16px;
+  font-size: 17px;
   font-weight: bold;
+  color: #e5e5e6;
+  letter-spacing: 0.2px;
+  max-width: 200px;
+  overflow: hidden;
 `;
 
 const TrackArtist = styled.div`
-  font-size: 14px;
+  font-size: 12px;
+  color: #666666;
+  letter-spacing: 0.2px;
 `;
 
 const AlbumArtworkContainer = styled.div`
   height: 60px;
   width: 60px;
-  margin-right: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-left: 14px;
+  margin-right: 20px;
 `;
 
 const AlbumArtwork = styled.img`
@@ -37,20 +71,62 @@ const AlbumArtwork = styled.img`
   width: 100%;
 `;
 
-const PlaybarContainer = styled.div`
-  height: 3px;
+const PlaybackContainerOuter = styled.div`
   width: 400px;
-  background-color: #eee;
+  height: 5px;
+  border-radius: 50px;
+  overflow: hidden;
+`;
+
+const PlaybarContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  background-color: #353130;
+  border-radius: 0%;
 `;
 
 const Playbar = styled(motion.div)`
   height: 100%;
-  background-color: blue;
+  background-color: #ffffff;
   transition: 1000ms;
   width: 0%;
+  border-radius: 50px;
+  overflow: hidden;
 `;
 
-const Controls = styled.div``;
+const Controls = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+const SkipBackwardIconContainer = styled.div`
+  transform: rotate(-180deg);
+  margin-top: -10px;
+  margin-right: 4px;
+  cursor: pointer;
+`;
+
+const PlayIconContainer = styled.div`
+  margin: 0px 15px;
+  cursor: pointer;
+`;
+
+const SkipForwardIconContainer = styled.div`
+  cursor: pointer;
+`;
+
+const CenterContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
 
 function Player() {
   const authToken = useStoreState((state) => state.app.authToken);
@@ -191,25 +267,39 @@ function Player() {
   };
 
   return (
-    <PlayerContainer
-      variants={ContainerAnim}
-      initial="show"
-      animate={playerVisible ? "show" : "hidden"}
-    >
-      <AlbumArtworkContainer>
-        <AlbumArtwork src={albumArtwork} alt={trackName} />
-      </AlbumArtworkContainer>
-      <MetaData>
-        <TrackName>{trackName}</TrackName>
-        <TrackArtist>{trackArtist}</TrackArtist>
-      </MetaData>
-      <PlaybarContainer>
-        <Playbar style={{ width: playbackPercent + "%" }} />
-      </PlaybarContainer>
-      <Controls>
-        <button onClick={() => togglePlay()}>Play/Pause</button>
-      </Controls>
-    </PlayerContainer>
+    <PlayerContainerOuter>
+      <PlayerContainer
+        variants={ContainerAnim}
+        initial="show"
+        animate={playerVisible ? "show" : "hidden"}
+      >
+        <AlbumArtworkContainer>
+          <AlbumArtwork src={albumArtwork} alt={trackName} />
+        </AlbumArtworkContainer>
+        <MetaData>
+          <TrackName>{trackName}</TrackName>
+          <TrackArtist>{trackArtist}</TrackArtist>
+        </MetaData>
+        <CenterContent>
+          <Controls>
+            <SkipBackwardIconContainer>
+              <SkipIcon height={"18px"} />
+            </SkipBackwardIconContainer>
+            <PlayIconContainer>
+              <PlayIcon onClick={() => togglePlay()} height={"23px"} />
+            </PlayIconContainer>
+            <SkipForwardIconContainer>
+              <SkipIcon height={"18px"} />
+            </SkipForwardIconContainer>
+          </Controls>
+          <PlaybackContainerOuter>
+            <PlaybarContainer>
+              <Playbar style={{ width: playbackPercent + "%" }} />
+            </PlaybarContainer>
+          </PlaybackContainerOuter>
+        </CenterContent>
+      </PlayerContainer>
+    </PlayerContainerOuter>
   );
 }
 
